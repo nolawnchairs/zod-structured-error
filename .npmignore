@@ -1,6 +1,6 @@
 src
 test
-.env
+.github
 .eslintrc.js
 .gitignore
 CHANGELOG.md
