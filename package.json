@@ -1,6 +1,6 @@
 {
   "name": "zod-structured-error",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A library that converts Zod errors into a sensible, flattened object",
   "keywords": [
     "zod",
