@@ -55,7 +55,7 @@ The `grouping` option determines how multiple errors for the same path are handl
 
 ### `ZodStructuredError`
 
-The `ZodStructuredError` type is an alias for `Record<string, string | string[]>` 
+The `ZodStructuredError` return type is an alias for `Record<string, string | string[]>` 
 
 
 ## Example
