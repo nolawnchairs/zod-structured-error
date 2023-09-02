@@ -1,0 +1,24 @@
+{
+  "compilationOptions": {
+    "preferredConfigPath": "./tsconfig.dts.json"
+  },
+  "entries": [
+    {
+      "filePath": "./src/index.ts",
+      "outFile": "./index.d.ts",
+      "libraries": {
+        "allowedTypesLibraries": [
+          "zod"
+        ],
+        "importedLibraries": [
+          "zod"
+        ]
+      },
+      "output": {
+        "inlineDeclareGlobals": false,
+        "sortNodes": true,
+        "noBanner": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "zod-structured-error",
+  "version": "0.0.1",
+  "description": "Library that converts Zod errors into a flattened object",
+  "main": "lib/index.js",
+  "keywords": [],
+  "author": "Michael Wieczorek <nolawnchairs@gmail.com>",
+  "license": "MTI",
+  "devDependencies": {
+    "@types/jest": "^29.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "dts-bundle-generator": "^8.0.1",
+    "eslint": "^8.48.0",
+    "jest": "^29.6.4",
+    "rimraf": "^5.0.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2",
+    "zod": "^3.22.2"
+  },
+  "peerDependencies": {
+    "zod": "^3.22.2"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": false
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "test",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.ts"
+    ],
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@knightinteractive/auth": "^2.2.0"
+  },
+  "scripts": {
+    "build": "rimraf ./lib && tsc && npm run define",
+    "define": "dts-bundle-generator --config ./dts-config.json && npm run lint:fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test:runner": "jest --watchAll",
+    "test": "jest"
+  }
+}
