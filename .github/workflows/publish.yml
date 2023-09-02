@@ -1,5 +1,4 @@
- # Tests the package on release and publishes to NPM
-
+name: Release
 on:
   release:
     types:
