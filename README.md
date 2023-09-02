@@ -27,7 +27,10 @@ npm install zod
 ### `toStructuredError`
 
 ```ts
-declare function toStructuredError(error: ZodError, options?: ZodStructuredErrorOptions): Record<string, string>
+declare function toStructuredError(
+  error: ZodError<any>, 
+  options?: ZodStructuredErrorOptions
+): ZodStructuredError
 ```
 
  * `error` - A Zod error object
@@ -35,11 +38,13 @@ declare function toStructuredError(error: ZodError, options?: ZodStructuredError
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `grouping` | `join`<br>`array`<br>`array-if-multiple` | `join` | How to handle multiple errors for the same path |
+| `grouping` | union `ErrorGrouping` | `join` | How to handle multiple errors for the same path |
 | `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `grouping` is not `join` |
 | `pathDelimiter` | `string` | `'.'` | The delimiter to use when joining error path segments |
 
-The `grouping` option determines how multiple errors for the same path are handled. The following options are available:
+### `ErrorGrouping`
+
+The `grouping` option determines how multiple errors for the same path are handled. The following values are available:
 
 | Grouping | Description |
 | --- | --- |
@@ -48,7 +53,12 @@ The `grouping` option determines how multiple errors for the same path are handl
 | `array-if-multiple` | Represent errors as arrays, but only if there are multiple errors for the same path |
 
 
-### Example
+### `ZodStructuredError`
+
+The `ZodStructuredError` type is an alias for `Record<string, string | string[]>` 
+
+
+## Example
 
 ```ts
 import { z } from 'zod'
@@ -133,6 +143,8 @@ But the structured error looks simplifies the error and groups errors by path:
   'nested.id': 'Number must be greater than 0; Number must be a multiple of 10'
 }
 ```
+
+## Customization
 
 By default, multiple errors for the same path are joined with a semicolon. You can change the delimiter:
 
