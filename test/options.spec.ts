@@ -33,7 +33,7 @@ describe('Options', () => {
 
   it('should use custom multiples delimiter', () => {
     const error = run()
-    const structured = toStructuredError(error, { joinDelimiter: ',' })
+    const structured = toStructuredError(error, { joinDelimiter: ', ' })
     expect(structured['intval']).toEqual('Number must be greater than or equal to 10, Number must be a multiple of 2')
   })
 

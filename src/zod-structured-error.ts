@@ -10,13 +10,13 @@ export type ZodStructuredErrorOptions =
 type ZodStructuredErrorOptionsBase = {
   /**
    * How to handle multiple issues for the same path.
-   * - `join` (default): join error messages with the delimiter
+   * - `join` (default): join error messages with a delimiter (see `joinDelimiter`)
    * - `array`: return an array of error messages
    */
   multiplesStrategy?: 'join' | 'array'
   /**
-   * Delimiter to use when joining multiple issues for the same path. A space is added after delimiters.
-   * Default: `;`
+   * Delimiter to use when joining multiple issues for the same path
+   * Default: `; ` (semicolon + space)
    */
   joinDelimiter?: string
   /**
@@ -39,7 +39,7 @@ export type ZodStructuredError = Record<string, string | string[]>
 
 const DEFAULT_OPTONS: ZodStructuredErrorOptions = {
   multiplesStrategy: 'join',
-  joinDelimiter: ';',
+  joinDelimiter: '; ',
   pathDelimiter: '.',
 }
 
@@ -57,7 +57,7 @@ export function toStructuredError(error: ZodError, options?: ZodStructuredErrorO
   const output: ZodStructuredError = {}
   if (config.multiplesStrategy === 'join') {
     for (const key in result) {
-      output[key] = result[key].join(`${config.joinDelimiter} `)
+      output[key] = result[key].join(config.joinDelimiter)
     }
   } else {
     for (const key in result) {
