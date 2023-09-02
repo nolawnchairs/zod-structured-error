@@ -41,13 +41,13 @@ describe('Options', () => {
 
   it('should return array', () => {
     const error = run()
-    const structured = toStructuredError(error, { multiplesStrategy: 'array' })
+    const structured = toStructuredError(error, { grouping: 'array' })
     expect(structured['intval']).toEqual(['Number must be greater than or equal to 10', 'Number must be a multiple of 2'])
   })
 
   it('should return array if multiple', () => {
     const error = run()
-    const structured = toStructuredError(error, { multiplesStrategy: 'array-if-multiple' })
+    const structured = toStructuredError(error, { grouping: 'array-if-multiple' })
     expect(structured['intval']).toEqual(['Number must be greater than or equal to 10', 'Number must be a multiple of 2'])
     expect(structured['strval']).toEqual('String must contain at least 1 character(s)')
   })

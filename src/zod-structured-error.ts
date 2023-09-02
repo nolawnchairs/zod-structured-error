@@ -14,7 +14,7 @@ type ZodStructuredErrorOptionsBase = {
    * - `array`: all error messages are returned as an array
    * - `array-if-multiple`: if there is only one issue, return the message as a string, otherwise return an array
    */
-  multiplesStrategy?: 'join' | 'array' | 'array-if-multiple'
+  grouping?: 'join' | 'array' | 'array-if-multiple'
   /**
    * Delimiter to use when joining multiple issues for the same path
    * Default: `; ` (semicolon + space)
@@ -27,19 +27,19 @@ type ZodStructuredErrorOptionsBase = {
 }
 
 type ZodStructuredErrorOptionsJoin = {
-  multiplesStrategy?: 'join'
+  grouping?: 'join'
   delimiter?: string
 }
 
 type ZodStructuredErrorOptionsArray = {
-  multiplesStrategy: 'array' | 'array-if-multiple'
+  grouping: 'array' | 'array-if-multiple'
   delimiter?: never
 }
 
 export type ZodStructuredError = Record<string, string | string[]>
 
 const DEFAULT_OPTIONS: ZodStructuredErrorOptions = {
-  multiplesStrategy: 'join',
+  grouping: 'join',
   joinDelimiter: '; ',
   pathDelimiter: '.',
 }
@@ -57,7 +57,7 @@ export function toStructuredError(error: ZodError, options?: ZodStructuredErrorO
   const result = groupIssues(error.issues, config.pathDelimiter)
   const output: ZodStructuredError = {}
   for (const key in result) {
-    switch (config.multiplesStrategy) {
+    switch (config.grouping) {
       case 'array':
         output[key] = result[key]
         break

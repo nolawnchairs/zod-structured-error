@@ -35,9 +35,17 @@ declare function toStructuredError(error: ZodError, options?: ZodStructuredError
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `multiplesStrategy` | `join`<br>`array`<br>`array-if-multiple` | `join` | How to handle multiple errors for the same path |
-| `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `multiplesStrategy` is not `join` |
+| `grouping` | `join`<br>`array`<br>`array-if-multiple` | `join` | How to handle multiple errors for the same path |
+| `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `grouping` is not `join` |
 | `pathDelimiter` | `string` | `'.'` | The delimiter to use when joining error path segments |
+
+The `grouping` option determines how multiple errors for the same path are handled. The following options are available:
+
+| Grouping | Description |
+| --- | --- |
+| `join` | Join multiple errors with a delimiter (default) |
+| `array` | Represent errors as arrays |
+| `array-if-multiple` | Represent errors as arrays, but only if there are multiple errors for the same path |
 
 
 ### Example
@@ -145,7 +153,7 @@ Errors can be represented arrays instead of strings:
 
 ```ts
 const structured = toStructuredError(result.error, {
-  multiplesStrategy: 'array',
+  grouping: 'array',
 })
 
 // Outputs
@@ -164,7 +172,7 @@ Errors can be represented arrays, but only if there are multiple errors for the 
 
 ```ts
 const structured = toStructuredError(result.error, {
-  multiplesStrategy: 'array-if-multiple',
+  grouping: 'array-if-multiple',
 })
 
 // Outputs
