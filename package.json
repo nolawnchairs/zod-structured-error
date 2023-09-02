@@ -10,6 +10,14 @@
   ],
   "author": "Michael Wieczorek <nolawnchairs@gmail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/nolawnchairs/zod-structured-error#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolawnchairs/zod-structured-error.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nolawnchairs/zod-structured-error/issues"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
