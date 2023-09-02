@@ -54,9 +54,6 @@
     ],
     "testEnvironment": "node"
   },
-  "dependencies": {
-    "@knightinteractive/auth": "^2.2.0"
-  },
   "scripts": {
     "build": "rimraf ./lib && tsc && npm run define",
     "define": "dts-bundle-generator --config ./dts-config.json && npm run lint:fix",
