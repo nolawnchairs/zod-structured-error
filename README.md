@@ -35,8 +35,8 @@ declare function toStructuredError(error: ZodError, options?: ZodStructuredError
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `multiplesStrategy` | `join` or `array` | `join` | How to handle multiple errors for the same path |
-| `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `multiplesStrategy` is set to `array` |
+| `multiplesStrategy` | `join`<br>`array`<br>`array-if-multiple` | `join` | How to handle multiple errors for the same path |
+| `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `multiplesStrategy` is not `join` |
 | `pathDelimiter` | `string` | `'.'` | The delimiter to use when joining error path segments |
 
 
@@ -152,6 +152,25 @@ const structured = toStructuredError(result.error, {
 {
   'label': [ 'Expected string, received null' ],
   'tags.1': [ 'String must contain at least 1 character(s)' ],
+  'nested.id': [
+    'Number must be greater than 0',
+    'Number must be a multiple of 10'
+  ]
+}
+
+```
+
+Errors can be represented arrays, but only if there are multiple errors for the same path:
+
+```ts
+const structured = toStructuredError(result.error, {
+  multiplesStrategy: 'array-if-multiple',
+})
+
+// Outputs
+{
+  'label': 'Expected string, received null',
+  'tags.1': 'String must contain at least 1 character(s)',
   'nested.id': [
     'Number must be greater than 0',
     'Number must be a multiple of 10'

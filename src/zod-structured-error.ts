@@ -11,9 +11,10 @@ type ZodStructuredErrorOptionsBase = {
   /**
    * How to handle multiple issues for the same path.
    * - `join` (default): join error messages with a delimiter (see `joinDelimiter`)
-   * - `array`: return an array of error messages
+   * - `array`: all error messages are returned as an array
+   * - `array-if-multiple`: if there is only one issue, return the message as a string, otherwise return an array
    */
-  multiplesStrategy?: 'join' | 'array'
+  multiplesStrategy?: 'join' | 'array' | 'array-if-multiple'
   /**
    * Delimiter to use when joining multiple issues for the same path
    * Default: `; ` (semicolon + space)
@@ -31,13 +32,13 @@ type ZodStructuredErrorOptionsJoin = {
 }
 
 type ZodStructuredErrorOptionsArray = {
-  multiplesStrategy: 'array'
+  multiplesStrategy: 'array' | 'array-if-multiple'
   delimiter?: never
 }
 
 export type ZodStructuredError = Record<string, string | string[]>
 
-const DEFAULT_OPTONS: ZodStructuredErrorOptions = {
+const DEFAULT_OPTIONS: ZodStructuredErrorOptions = {
   multiplesStrategy: 'join',
   joinDelimiter: '; ',
   pathDelimiter: '.',
@@ -52,16 +53,20 @@ const DEFAULT_OPTONS: ZodStructuredErrorOptions = {
  * @return {*}  {ZodStructuredError}
  */
 export function toStructuredError(error: ZodError, options?: ZodStructuredErrorOptions): ZodStructuredError {
-  const config = { ...DEFAULT_OPTONS, ...(options ?? {}) }
+  const config = { ...DEFAULT_OPTIONS, ...(options ?? {}) }
   const result = groupIssues(error.issues, config.pathDelimiter)
   const output: ZodStructuredError = {}
-  if (config.multiplesStrategy === 'join') {
-    for (const key in result) {
-      output[key] = result[key].join(config.joinDelimiter)
-    }
-  } else {
-    for (const key in result) {
-      output[key] = result[key]
+  for (const key in result) {
+    switch (config.multiplesStrategy) {
+      case 'array':
+        output[key] = result[key]
+        break
+      case 'array-if-multiple':
+        output[key] = result[key].length > 1 ? result[key] : result[key][0]
+        break
+      case 'join':
+      default:
+        output[key] = result[key].join(config.joinDelimiter)
     }
   }
   return output

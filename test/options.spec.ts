@@ -6,6 +6,7 @@ describe('Options', () => {
 
   const schema = z.object({
     intval: z.number().int().min(10).max(100).multipleOf(2),
+    strval: z.string().nonempty(),
     nested: z.object({
       intval: z.number().int().min(10).max(100).multipleOf(2),
     }),
@@ -15,6 +16,7 @@ describe('Options', () => {
     try {
       schema.parse({
         intval: 1,
+        strval: '',
         nested: {
           intval: 1,
         },
@@ -43,9 +45,16 @@ describe('Options', () => {
     expect(structured['intval']).toEqual(['Number must be greater than or equal to 10', 'Number must be a multiple of 2'])
   })
 
+  it('should return array if multiple', () => {
+    const error = run()
+    const structured = toStructuredError(error, { multiplesStrategy: 'array-if-multiple' })
+    expect(structured['intval']).toEqual(['Number must be greater than or equal to 10', 'Number must be a multiple of 2'])
+    expect(structured['strval']).toEqual('String must contain at least 1 character(s)')
+  })
+
   it('should use a custom path delimiter', () => {
     const error = run()
     const structured = toStructuredError(error, { pathDelimiter: '/' })
-    expect(Object.keys(structured)).toEqual(['intval', 'nested/intval'])
+    expect(Object.keys(structured)).toEqual(['intval', 'strval', 'nested/intval'])
   })
 })
