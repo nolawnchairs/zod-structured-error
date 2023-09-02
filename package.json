@@ -48,8 +48,8 @@
   "scripts": {
     "build": "rimraf ./lib && tsc && npm run define",
     "define": "dts-bundle-generator --config ./dts-config.json && npm run lint:fix",
-    "lint": "eslint",
-    "lint:fix": "eslint --fix",
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "eslint --fix --ext .ts .",
     "test:runner": "jest --watchAll",
     "test": "jest"
   }
