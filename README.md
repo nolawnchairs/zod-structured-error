@@ -35,7 +35,7 @@ declare function toStructuredError(error: ZodError, options?: ZodStructuredError
 
 | Option | Type | Default | Description |
 | --- | --- | --- | --- |
-| `multiplesStrategy` | `join` or `string` | `join` | How to handle multiple errors for the same path |
+| `multiplesStrategy` | `join` or `array` | `join` | How to handle multiple errors for the same path |
 | `joinDelimiter` | `string` | `'; '` | The delimiter to use when joining multiple errors. Ignored when `multiplesStrategy` is set to `array` |
 | `pathDelimiter` | `string` | `'.'` | The delimiter to use when joining error path segments |
 
