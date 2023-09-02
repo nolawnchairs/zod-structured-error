@@ -2,7 +2,6 @@
   "name": "zod-structured-error",
   "version": "0.1.0",
   "description": "A library that converts Zod errors into a sensible, flattened object",
-  "main": "lib/index.js",
   "keywords": [
     "zod",
     "error",
@@ -18,6 +17,8 @@
   "bugs": {
     "url": "https://github.com/nolawnchairs/zod-structured-error/issues"
   },
+  "main": "lib/index.js",
+  "types": "index.d.ts",
   "devDependencies": {
     "@types/jest": "^29.5.4",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
