@@ -1,6 +1,6 @@
 
 # Changelog
 
-## 0.0.1 (Current Beta)
+## 0.1.1 (Current)
  
  * Initial beta release
