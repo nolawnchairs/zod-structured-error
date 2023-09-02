@@ -6,7 +6,9 @@
 A small library that converts Zod errors into structured objects. Zero dependencies, zero fuss.
 
 [![npm version](https://badge.fury.io/js/zod-structured-error.svg)](https://badge.fury.io/js/zod-structured-error)
-[![Build Status](https://travis-ci.org/colinhacks/zod-structured-error.svg?branch=master)](https://travis-ci.org/colinhacks/zod-structured-error)
+[![Build Status](https://github.com/nolawnchairs/zod-structured-error/actions/workflows/publish.yml/badge.svg)](https://github.com/nolawnchairs/zod-structured-error/actions/workflows/publish.yml/badge.svg)
+
+
 
 ## Installation
 
