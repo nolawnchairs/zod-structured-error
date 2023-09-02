@@ -1,7 +1,7 @@
 {
   "name": "zod-structured-error",
   "version": "0.0.1",
-  "description": "Library that converts Zod errors into a flattened object",
+  "description": "A library that converts Zod errors into a sensible, flattened object",
   "main": "lib/index.js",
   "keywords": [],
   "author": "Michael Wieczorek <nolawnchairs@gmail.com>",
